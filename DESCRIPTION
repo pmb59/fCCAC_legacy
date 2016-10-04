@@ -10,7 +10,7 @@ Description: An application of functional canonical correlation analysis
 	chromatin immunoprecipitation followed by deep sequencing (ChIP-seq).
 Depends: R (>= 2.10.0), S4Vectors, IRanges, GenomicRanges, grid
 Maintainer: Pedro Madrigal <pm12@sanger.ac.uk>
-Imports: fda, RColorBrewer, genomation, ggplot2, ComplexHeatmap
+Imports: fda, RColorBrewer, genomation, ggplot2, ComplexHeatmap, grDevices, stats, utils
 Suggests: RUnit, BiocGenerics, BiocStyle
 License: Artistic-2.0
 LazyLoad: yes
