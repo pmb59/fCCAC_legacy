@@ -28,7 +28,7 @@ heatmapfCCAC(fc)
 \examples{
 
 ## hg19. chr21:40000000-48129895 H3K4me3 data from Bertero et al. (2015)
-if (.Platform$OS.type != "windows") {
+if (.Platform$OS.type == "unix") {
   
 owd <- setwd(tempdir())
 
