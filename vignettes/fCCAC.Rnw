@@ -61,7 +61,7 @@ illustrative example shown in this vignette.
 \begin{small}
 <<fCCACexample, fig=TRUE, include=TRUE, fig.width=1, fig.height=3>>=
 options(width=60);
-if (.Platform$OS.type != "windows") {
+if (.Platform$OS.type == "unix") {
 
 
 ## hg19. chr21:40000000-48129895 H3K4me3 data from Bertero et al. (2015)
@@ -103,7 +103,7 @@ we can plot a heatmap of F values:
 \begin{small}
 <<heatmapPlot, fig=TRUE, include=TRUE, fig.width=1, fig.height=1.5>>=
 options(width=60)
-if (.Platform$OS.type != "windows"){ heatmapfCCAC(fc) }
+if (.Platform$OS.type == "unix" ){ heatmapfCCAC(fc) }
 
 @ 
 
