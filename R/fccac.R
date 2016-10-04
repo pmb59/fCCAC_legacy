@@ -166,7 +166,7 @@ if (outFiles == TRUE){
 		dev.off()
 		
 		print("Saving fCCAC.txt...")
-		write.table(x=fccac_out , file = "fCCAC.txt", append = FALSE, quote = F, sep = "\t", row.names = F, col.names = TRUE)
+		write.table(x=fccac_out , file = "fCCAC.txt", append = FALSE, quote = FALSE, sep = "\t", row.names = F, col.names = TRUE)
 	
 		print("Done...")
 }
