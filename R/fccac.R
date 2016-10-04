@@ -41,7 +41,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 			print(paste(c("Reading bigWig file...",i,"/",length(bigwigs)),collapse="")  )
 
 			fdamatrix <- matrix(0.0, ncol=L+1, nrow= length(peaks) ) 
-			fdamatrix  <- ScoreMatrixBin(target = bigwigs[i], bin.num = L+1, windows = peaks, type="bigWig",rpm=F, strand.aware = TRUE, bin.op="max" )
+			fdamatrix  <- ScoreMatrixBin(target = bigwigs[i], bin.num = L+1, windows = peaks, type="bigWig",rpm=FALSE, strand.aware = TRUE, bin.op="max" )
 			fdaData[[i]] <- Data2fd(y=t(fdamatrix), argvals= argvalsBS, basisobj=bspl) 			
 
 		}
@@ -130,7 +130,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		ggData <- subset(ggData, variables==1 )
 		#head (ggData ) 
 		#sort and assign colors
-		ggData <- ggData[sort(ggData$sccM, index.return=T, decreasing=T)[[2]],]
+		ggData <- ggData[sort(ggData$sccM, index.return=TRUE, decreasing=TRUE)[[2]],]
 		ggData$CL <- rev( colfunc(ncol(co))  )
 		#head (ggData ) 
 		
