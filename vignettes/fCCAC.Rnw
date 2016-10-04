@@ -50,36 +50,37 @@ Data used in the example correspond to H3K4me3 triplicates (wild-type H9-hESCs) 
 
 \begin{small}
 <<fCCACexample, fig=TRUE, include=TRUE, fig.width=1, fig.height=3>>=
+options(width=60);
 if (.Platform$OS.type != "windows") {
 
-options(width=60)
+
 ## hg19. chr21:40000000-48129895 H3K4me3 data from Bertero et al. (2015)
 
 
-owd <- setwd(tempdir())
+owd <- setwd(tempdir());
 
 
-library(fCCAC)
-bigwig1 <- "chr21_H3K4me3_1.bw"
-bigwig2 <- "chr21_H3K4me3_2.bw"
-bigwig3 <- "chr21_H3K4me3_3.bw"
-peakFile <- "chr21_merged_ACT_K4.bed"
-labels <- c( "H3K4me3", "H3K4me3","H3K4me3" )
+library(fCCAC);
+bigwig1 <- "chr21_H3K4me3_1.bw";
+bigwig2 <- "chr21_H3K4me3_2.bw";
+bigwig3 <- "chr21_H3K4me3_3.bw";
+peakFile <- "chr21_merged_ACT_K4.bed";
+labels <- c( "H3K4me3", "H3K4me3","H3K4me3" );
 
-r1 <- system.file("extdata", bigwig1,  package="fCCAC",mustWork = TRUE)
-r2 <- system.file("extdata", bigwig2,  package="fCCAC",mustWork = TRUE)
-r3 <- system.file("extdata", bigwig3,  package="fCCAC",mustWork = TRUE)
-r4 <- system.file("extdata", peakFile, package="fCCAC",mustWork = TRUE)
-ti <- "H3K4me3 peaks (chr21)"
+r1 <- system.file("extdata", bigwig1,  package="fCCAC",mustWork = TRUE);
+r2 <- system.file("extdata", bigwig2,  package="fCCAC",mustWork = TRUE);
+r3 <- system.file("extdata", bigwig3,  package="fCCAC",mustWork = TRUE);
+r4 <- system.file("extdata", peakFile, package="fCCAC",mustWork = TRUE);
+ti <- "H3K4me3 peaks (chr21)" ;
 
-fc <- fccac(bar=NULL, main=ti, peaks=r4, bigwigs=c(r1,r2,r3), labels=labels, splines=15, nbins=100, ncan=15) 
+fc <- fccac(bar=NULL, main=ti, peaks=r4, bigwigs=c(r1,r2,r3), labels=labels, splines=15, nbins=100, ncan=15);
 
-head(fc)
+head(fc);
 
-setwd(owd)
+setwd(owd); }
 
-}
-@ 
+@
+
 \end{small}
 
 As we can observe, the triplicates present very high values both in first squared canonical correlation (>0.99) and in their F values, which denotes high reproducibility of the experiment.\\
@@ -88,13 +89,11 @@ Finally, if all pairwise comparisons have been computed ('tf=c()' by default), w
 
 \begin{small}
 <<heatmapPlot, fig=TRUE, include=TRUE, fig.width=1, fig.height=1.5>>=
-if (.Platform$OS.type != "windows") {
-
 options(width=60)
+if (.Platform$OS.type != "windows") {  heatmapfCCAC(fc)  }
 
-heatmapfCCAC(fc)
-}
 @ 
+
 \end{small}
 
 
