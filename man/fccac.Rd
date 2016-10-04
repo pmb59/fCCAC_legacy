@@ -39,9 +39,10 @@ bar=NULL, outFiles=FALSE )
 \examples{
 
 ## hg19. chr21:40000000-48129895 H3K4me3 data from Bertero et al. (2015)
-
-owd <- setwd(tempdir())
 if (.Platform$OS.type != "windows") {
+  
+owd <- setwd(tempdir())
+
 bigwig1 <- "chr21_H3K4me3_1.bw"
 bigwig2 <- "chr21_H3K4me3_2.bw"
 bigwig3 <- "chr21_H3K4me3_3.bw"
@@ -57,7 +58,7 @@ ti <- "H3K4me3 peaks"
 fc <- fccac(bar=NULL, main=ti, peaks=r4, bigwigs=c(r1,r2,r3), labels=labels, splines=15, nbins=100, ncan=15) 
 
 head(fc)
-}
-setwd(owd)
 
+setwd(owd)
+}
 }
