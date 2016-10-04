@@ -50,13 +50,14 @@ Data used in the example correspond to H3K4me3 triplicates (wild-type H9-hESCs) 
 
 \begin{small}
 <<fCCACexample, fig=TRUE, include=TRUE, fig.width=1, fig.height=3>>=
+if (.Platform$OS.type != "windows") {
+
 options(width=60)
 ## hg19. chr21:40000000-48129895 H3K4me3 data from Bertero et al. (2015)
 
 
 owd <- setwd(tempdir())
 
-if (.Platform$OS.type != "windows") {
 
 library(fCCAC)
 bigwig1 <- "chr21_H3K4me3_1.bw"
@@ -74,9 +75,10 @@ ti <- "H3K4me3 peaks (chr21)"
 fc <- fccac(bar=NULL, main=ti, peaks=r4, bigwigs=c(r1,r2,r3), labels=labels, splines=15, nbins=100, ncan=15) 
 
 head(fc)
-}
+
 setwd(owd)
 
+}
 @ 
 \end{small}
 
@@ -86,8 +88,10 @@ Finally, if all pairwise comparisons have been computed ('tf=c()' by default), w
 
 \begin{small}
 <<heatmapPlot, fig=TRUE, include=TRUE, fig.width=1, fig.height=1.5>>=
-options(width=60)
 if (.Platform$OS.type != "windows") {
+
+options(width=60)
+
 heatmapfCCAC(fc)
 }
 @ 
