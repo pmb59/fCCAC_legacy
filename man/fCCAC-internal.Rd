@@ -6,3 +6,8 @@
 
 
 \keyword{internal}
+
+\examples{
+#	multiplot(p1, p2, cols=1)
+
+}
