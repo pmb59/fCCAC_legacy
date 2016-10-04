@@ -1,6 +1,6 @@
-%\VignetteIndexEntry{fCCAC Vignette }
+%\VignetteIndexEntry{fCCAC Vignette}
 %\VignetteDepends{}
-%\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics}
+%\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics,Coverage}
 %\VignettePackage{fCCAC}
 \documentclass{article}
 
