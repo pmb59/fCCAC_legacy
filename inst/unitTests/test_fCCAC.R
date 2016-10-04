@@ -2,7 +2,6 @@ test_fCCAC <- function() {
 
 	owd <- setwd(tempdir())
 
-
 	bigwig1 <- "chr21_H3K4me3_1.bw"
 	bigwig2 <- "chr21_H3K4me3_2.bw"
 	bigwig3 <- "chr21_H3K4me3_3.bw"
@@ -16,12 +15,6 @@ test_fCCAC <- function() {
 
 	fc <- fccac(bar=NULL, main="H3K4me3 peaks", peaks=r4, bigwigs=c(r1,r2,r3), labels=labels, splines=15, nbins=100, ncan=15, outFiles=FALSE) 
 
-
-	
-#	out <- cexor(bam=c(r1,r2,r3), chrN="chr2", chrL=1e6, N=3e4)
-#
-#	#check that the example data outputs a GRanges with 13 ranges 
-#	checkEquals(length(out$bindingEvents), 13)
 
         #check that if minimal input is not introduced the package recognizes an error situation
 	#peakFile
