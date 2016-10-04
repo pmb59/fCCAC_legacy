@@ -30,7 +30,7 @@ Maintainer: Pedro Madrigal \email{pm12@sanger.ac.uk}
 ## hg19. chr21:40000000-48129895 H3K4me3 data from Bertero et al. (2015)
 
 owd <- setwd(tempdir())
-
+if (.Platform$OS.type != "windows") {
 bigwig1 <- "chr21_H3K4me3_1.bw"
 bigwig2 <- "chr21_H3K4me3_2.bw"
 bigwig3 <- "chr21_H3K4me3_3.bw"
@@ -47,7 +47,7 @@ fc <- fccac(bar=NULL, main=ti, peaks=r4, bigwigs=c(r1,r2,r3), labels=labels, spl
 
 head(fc)
 
-
+}
 
 setwd(owd)
 }
