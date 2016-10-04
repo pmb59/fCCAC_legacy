@@ -138,7 +138,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		ggData2 <- data.frame(S = 100* (S/Ma), pair = Spair  )   
 		#head (ggData2 ) 
 		#ggData2 <- transform(ggData2,  pair = reorder(pair, S))
-		ggData2 <- ggData2[sort(ggData2$S, index.return=T, decreasing=T)[[2]],]
+		ggData2 <- ggData2[sort(ggData2$S, index.return=TRUE, decreasing=TRUE)[[2]],]
 		#head (ggData2 ) 
 		ggData3 <- merge(x=ggData2, y=ggData, by='pair',  sort = FALSE)
 		#ggData3 <- ggData3[sort(ggData3$S, index.return=T, decreasing=T)[[2]],]
@@ -166,7 +166,7 @@ if (outFiles == TRUE){
 		dev.off()
 		
 		print("Saving fCCAC.txt...")
-		write.table(x=fccac_out , file = "fCCAC.txt", append = FALSE, quote = FALSE, sep = "\t", row.names = F, col.names = TRUE)
+		write.table(x=fccac_out , file = "fCCAC.txt", append = FALSE, quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
 	
 		print("Done...")
 }
