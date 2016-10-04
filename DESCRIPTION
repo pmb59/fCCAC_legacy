@@ -15,5 +15,5 @@ Suggests: RUnit, BiocGenerics, BiocStyle
 License: Artistic-2.0
 LazyLoad: yes
 LazyData: yes
-biocViews: Transcription, Genetics, Sequencing
+biocViews: Transcription, Genetics, Sequencing, Coverage
 
