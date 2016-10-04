@@ -1,5 +1,5 @@
 test_fCCAC <- function() {
-	if (.Platform$OS.type != "windows") {
+	if (.Platform$OS.type == "unix") {
 		
 	owd <- setwd(tempdir())
 	
