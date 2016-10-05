@@ -7,7 +7,7 @@
 \documentclass{article}
 
 
-<<style, eval=TRUE, echo=FALSE, results="asis">>=
+<<style, eval=TRUE, echo=FALSE, results="tex">>=
 BiocStyle::latex()
 @
 
