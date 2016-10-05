@@ -2,7 +2,6 @@
 %\VignetteDepends{}
 %\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics,Coverage}
 %\VignettePackage{fCCAC}
-%\VignetteEngine{knitr::knitr}
 
 \documentclass{article}
 
