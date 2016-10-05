@@ -2,11 +2,10 @@
 %\VignetteDepends{}
 %\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics,Coverage}
 %\VignettePackage{fCCAC}
-
 \documentclass{article}
 
 
-<<style, eval=TRUE, echo=FALSE, results="tex">>=
+<<style, eval=TRUE, echo=FALSE, results=tex>>=
 BiocStyle::latex()
 @
 
