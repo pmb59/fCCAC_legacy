@@ -1,15 +1,15 @@
 heatmapfCCAC <- function(fc){
   
   M <- c() #store sample names
-  for (i in 1:length(fc$samples) ){
+  for (i in seq(from=1, to=length(fc$samples), by=1)    ){
     M<- c(M, strsplit( as.character(fc$samples[i]), split="_vs_")[[1]] )
   }
   M <- unique(M)
   
   #plot heatmap
   Fv <- matrix(NA, nrow=length(M), ncol=length(M))
-  for (i in 1:length(M)){
-    for (j in 1:length(M)){
+  for (i in seq(from=1, to=length(M), by=1)  ){
+    for (j in seq(from=1, to=length(M), by=1) ){
       o1 <- which(as.character(fc$samples) == paste(M[i], M[j], sep="_vs_" ) )
       o2 <- which(as.character(fc$samples) == paste(M[j], M[i], sep="_vs_" ) )
       if (length(o1)==1){ Fv[i,j] <- fc[o1,2] }  #fc$F[o1]
