@@ -2,12 +2,10 @@
                  
 fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c(), main="", bar=NULL, outFiles=FALSE ){    
 		
-	
 	#Read genomic regions in BED format with Bioconductor package genomation
 	print("Reading peaks...")
 	peaks <- readGeneric(file=peaks, chr=1, start=2, end=3)  #[1:100]  #readBed
-	
-    
+	  
   if (ncan > splines | ncan > length(peaks) ){ print("ncan should not be higher than the number of splines or peaks. Please lower the value of ncan.")   }
 
 	if (ncan <= splines | ncan <= length(peaks)){
@@ -49,7 +47,6 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		length(fdaData)
 
 
-
 		#Prepare Data for functional CCA
 
 		x <- list()             # list to store output of cca.fd
@@ -65,9 +62,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		if(length(tf)==1){
 			tf_co<-c()
 			for (j in 1:ncol(co)){
-		
 		 		if ( length( grep(pattern=tf, x=co[,j]) ) >0  ) tf_co <- c(tf_co, j)
-	
 			}
 		co <- co[,tf_co]
 		}
@@ -103,7 +98,6 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 			pair <- c(pair,  rep( paste(new_labels[c(file1,file2)]  , collapse="_vs_") ,ncan)  )
 			Spair <- 	c(Spair, paste(new_labels[c(file1,file2)], collapse="_vs_" ) )
 
-	
 			#calculate weigthed sum
 			S[[i]]= sum(w* x[[i]]$ccacorr[1:ncan]    )
 
@@ -115,10 +109,10 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 
 		#Colormap
 		#colfunc <- colorRampPalette(c("cyan","blue", "black","darkred","red" ,"green" )) 
-  		#colfunc <- colorRampPalette(c("#132B43","#56B1F7"))
-  		colfunc <- colorRampPalette(brewer.pal(10, "Spectral"))
+		#colfunc <- colorRampPalette(c("#132B43","#56B1F7"))
+		colfunc <- colorRampPalette(brewer.pal(10, "Spectral"))
 
-  		#Plots
+		#Plots
 
 		#ggplot2
 		ggData <- data.frame(scc = scc, pair = pair, variables = rep(1:ncan, ncol(co)), sccM = sccM)	
@@ -159,26 +153,28 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
     colnames(ggDataTXT) <- c("samples","F","squ_can_corr_k_1","k","squ_can_corr_k_1","color"  )
 		fccac_out <- ggDataTXT[,c(1,2,3,4,6)]
 		
-if (outFiles == TRUE){
-		print("Saving fCCAC.pdf...")
-		pdf("fCCAC.pdf", height=6, width=3.5)	
-		multiplot(p1, p2, cols=1)
-		dev.off()
+		if (outFiles == TRUE){
+			print("Saving fCCAC.pdf...")
+			pdf("fCCAC.pdf", height=6, width=3.5)	
+			multiplot(p1, p2, cols=1)
+			dev.off()
 		
-		print("Saving fCCAC.txt...")
-		write.table(x=fccac_out , file = "fCCAC.txt", append = FALSE, quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
+			print("Saving fCCAC.txt...")
+			write.table(x=fccac_out , file = "fCCAC.txt", append = FALSE, quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
 	
-		print("Done...")
-}
+			print("Done...")
+		}
 
-if (outFiles == FALSE){
-		multiplot(p1, p2, cols=1)
+		if (outFiles == FALSE){
+			multiplot(p1, p2, cols=1)
 
-}		
+		}		
 	
-		
-		
+			
 		return( fccac_out )
 	
 	}
+		
 }
+
+	
