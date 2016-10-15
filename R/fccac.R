@@ -10,7 +10,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 
 	if (ncan <= splines | ncan <= length(peaks)){
 		
-		print("Starting fCCAr...")
+		print("Starting fCCAC...")
 
 		SPLINES = splines   #
 		L = nbins           #bp
@@ -19,9 +19,9 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		#Modify labels to detect replicates (assume replicates are ordered 1,2,...)
 		d <- duplicated(labels)
 		new_labels <- c()
-		for (l in 1:length(labels)) {
+		for (l in seq(from=1, to=length(labels), by=1)  ) {
 	
-			if (d[l] == FALSE) {  counter =1; 				new_labels[l]  <- paste(labels[l], 1, sep="_Rep") }
+			if (d[l] == FALSE) {  counter =1; 	new_labels[l]  <- paste(labels[l], 1, sep="_Rep") }
 			if (d[l] == TRUE)  {  counter = counter +1;  	new_labels[l]  <- paste(labels[l], counter, sep="_Rep")  } 	
 		
 		}
@@ -29,13 +29,13 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 	
 		#Create B-spline basis system (cubic, order 4) of the signals before FDA:
 		bspl <- create.bspline.basis(rangeval=c(-L/2,L/2), nbasis=SPLINES, norder=4)   # Cubic B-splines
-		argvalsBS <- (-L/2):(L/2)
+		argvalsBS <- seq(from= (-L/2), to=(L/2), by=1)      #(-L/2):(L/2)
 
 		
 		#Read bigWig Files 
 		fdaData <- list()
 
-		for (i in 1:length(bigwigs)) {
+		for (i in seq(from=1, to=length(bigwigs), by=1)   ) {
 			print(paste(c("Reading bigWig file...",i,"/",length(bigwigs)),collapse="")  )
 
 			fdamatrix <- matrix(0.0, ncol=L+1, nrow= length(peaks) ) 
@@ -61,7 +61,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 				
 		if(length(tf)==1){
 			tf_co<-c()
-			for (j in 1:ncol(co)){
+			for (j in seq(from=1, to=ncol(co), by=1)  ){
 		 		if ( length( grep(pattern=tf, x=co[,j]) ) >0  ) tf_co <- c(tf_co, j)
 			}
 		co <- co[,tf_co]
@@ -69,11 +69,11 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 	
 	
 	
-		w = 1/ (1:ncan)
+		w = 1/ ( seq(from=1, to=ncan, by=1)  )
 		Ma <-  sum(w) 		# maximum possible value for w
 		S <- c()  		# weighted sums
 
-		for (i in 1:ncol(co)) {
+		for (i in seq(from=1, to=ncol(co), by=1)  ) {
 			print(paste(c("Performing fCCA in pair...",i,"/",ncol(co)) ,collapse="") )
 		
 			file1 <- which(new_labels==co[1,i])
@@ -88,10 +88,10 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		#plot.cca.fd(x)
 
 
-		for (i in 1:ncol(co)) {
+		for (i in seq(from=1, to=ncol(co), by=1)  ) {
 	
-			scc <- c(scc, x[[i]]$ccacorr[1:ncan]   )                      #all canonical correlations
-			sccM <- c( sccM, rep( max (x[[i]]$ccacorr[1:ncan]), ncan) )   #max of all canonical correlations
+			scc <- c(scc, x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]   )                      #all canonical correlations
+			sccM <- c( sccM, rep( max (x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]), ncan) )   #max of all canonical correlations
 
 			file1 <- which(new_labels==co[1,i])
 			file2 <- which(new_labels==co[2,i])
@@ -99,7 +99,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 			Spair <- 	c(Spair, paste(new_labels[c(file1,file2)], collapse="_vs_" ) )
 
 			#calculate weigthed sum
-			S[[i]]= sum(w* x[[i]]$ccacorr[1:ncan]    )
+			S[[i]]= sum(w* x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]    )
 
 		}
 
@@ -115,7 +115,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		#Plots
 
 		#ggplot2
-		ggData <- data.frame(scc = scc, pair = pair, variables = rep(1:ncan, ncol(co)), sccM = sccM)	
+		ggData <- data.frame(scc = scc, pair = pair, variables = rep( seq(from=1, to=ncan, by=1) , ncol(co)), sccM = sccM)	
 		# head (ggData ) 
 		ggData <- transform(ggData,  pair = reorder(pair, sccM))
 		#head (ggData ) 
