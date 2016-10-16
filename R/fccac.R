@@ -45,13 +45,8 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		#length(fdaData)
 
 
-		#Prepare Data for functional CCA
+		
 
-		x <- list()             # list to store output of cca.fd
-		scc <- c()  		# squared Canon. Corr.
-		sccM <- c() 		# MAX squared Canon. Corr.
-		pair <- c() 		# labeling
-		Spair <- c() 				# labeling for S
 		co <- combn(x=c(new_labels), m=2)  	# all possible pairwise combinations
 
 
@@ -69,12 +64,21 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
     			co <- co[, idx] 
   		}
 	
-	
+			
+		#Prepare Data for functional CCA
+			
+		#x <- list()             # list to store output of cca.fd
+		scc <- rep(0, ncan*ncol(co) )  #c()  		# squared Canon. Corr.
+		sccM <- rep(0, ncan*ncol(co) ) #c() 		# MAX squared Canon. Corr.
+		pair <- rep("pair", ncan*ncol(co) ) #c() 		# labeling
+		Spair <- rep("Spair", ncol(co) ) #c() 				# labeling for S
 			
 		w <-  1/ ( seq(from=1, to=ncan, by=1)  )
 		Ma <-  sum(w) 		# maximum possible value for w
-		S <- c()  		# weighted sums
+		S <- rep(0, ncol(co) )  		# weighted sums
+		x <- lapply(seq(from=1, to=ncol(co), by=1)  , function(x) NA) #x <- list()    # list to store output of cca.fd
 
+			
 		for (i in seq(from=1, to=ncol(co), by=1)  ) {
 			print(paste(c("Performing fCCA in pair...",i,"/",ncol(co)) ,collapse="") )
 		
@@ -92,16 +96,20 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 
 		for (i in seq(from=1, to=ncol(co), by=1)  ) {
 	
-			scc <- c(scc, x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]   )                      #all canonical correlations
-			sccM <- c( sccM, rep( max (x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]), ncan) )   #max of all canonical correlations
+			posit <- (1+(ncan*(i-1))):(ncan*(i-1+1) )
+			
+			scc[posit] <-  x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]                         #all canonical correlations
+			sccM[posit] <-  rep( max (x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]), ncan)    #max of all canonical correlations
 
 			file1 <- which(new_labels==co[1,i])
 			file2 <- which(new_labels==co[2,i])
-			pair <- c(pair,  rep( paste(new_labels[c(file1,file2)]  , collapse="_vs_") ,ncan)  )
-			Spair <- c(Spair, paste(new_labels[c(file1,file2)], collapse="_vs_" ) )
+			pair[posit] <-  rep( paste(new_labels[c(file1,file2)]  , collapse="_vs_") ,ncan)  
+			Spair[i] <- paste(new_labels[c(file1,file2)], collapse="_vs_" ) 
 
 			#calculate weigthed sum
-			S[[i]]= sum(w* x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]    )
+			S[i] <- sum(w* x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]    )
+			
+			rm(posit, file1, file2)
 
 		}
 
