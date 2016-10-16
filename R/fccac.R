@@ -59,17 +59,20 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 
 		# Select Sample of Interest (if any)
 				
+		#if(length(tf)==1){
+		#	tf_co<-c()
+		#	for (j in seq(from=1, to=ncol(co), by=1)  ){
+		# 		if ( length( grep(pattern=tf, x=co[,j]) ) >0  ) tf_co <- c(tf_co, j)
+		#	}
+		#	co <- co[,tf_co]
+		#}
 		if(length(tf)==1){
-			tf_co<-c()
-			for (j in seq(from=1, to=ncol(co), by=1)  ){
-		 		if ( length( grep(pattern=tf, x=co[,j]) ) >0  ) tf_co <- c(tf_co, j)
-			}
-			co <- co[,tf_co]
-		}
+    			idx <- unique(col(co)[grepl(tf, co)])
+    			co <- co[, idx] 
+  		}
 	
 	
-	
-		w = 1/ ( seq(from=1, to=ncan, by=1)  )
+		w <-  1/ ( seq(from=1, to=ncan, by=1)  )
 		Ma <-  sum(w) 		# maximum possible value for w
 		S <- c()  		# weighted sums
 
