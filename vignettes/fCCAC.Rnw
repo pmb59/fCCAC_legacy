@@ -40,7 +40,7 @@ options(prompt="R> ")
 \section{Introduction}
 Computational evaluation of variability across sequencing datasets is a crucial step in genomic science, as it allows both to evaluate the reproducibility across biological or technical replicates, and to compare different datasets to identify their potential correlations. fCCAC is an application of functional canonical correlation analysis to assess covariance of nucleic acid sequencing datasets such as chromatin immunoprecipitation followed by deep sequencing (ChIP-seq), ChIP-exo, etc. 
 Basic processing of this type of data can be performed using Bioconductor packages such as \Biocpkg{NarrowPeaks}, \Biocpkg{CSAR}, \Biocpkg{CexoR}, \Biocpkg{csaw}, \Biocpkg{ChIPseeker}, \Biocpkg{ChIPQC}, and others. Basic and advanced ChIP-seq workflows are available at the Bioconductor website: \href{https://www.bioconductor.org/help/workflows/sequencing/}{https://www.bioconductor.org/help/workflows/sequencing/} and \href{https://www.bioconductor.org/help/workflows/chipseqDB/}{https://www.bioconductor.org/help/workflows/chipseqDB/}. 
-Once regions of interest, such as peaks, exons, UTRs, etc. are obtained, bigwig data of the mapped reads are the necessesary too for using \Biocpkg{fCCAC}, and can be obtained using \Biocpkg{rtracklayer}. \\
+Once regions of interest, such as peaks, exons, UTRs, etc. are obtained, bigwig data of the mapped reads are necessesary too for using \Biocpkg{fCCAC}, and can be obtained using \Biocpkg{rtracklayer}. \\
 
 Detailed information about the methodology can be found in Madrigal (2016).
 
@@ -51,7 +51,7 @@ Data used in the example correspond to H3K4me3 triplicates (wild-type H9-hESCs) 
 
 
 \begin{small}
-<<fCCACexample, fig.show='asis', include=TRUE, fig.width=1, fig.height=3, background='#C9C6C6'>>=
+<<fCCACexample, fig=TRUE, include=TRUE, fig.width=1, fig.height=3>>=
 options(width=60);
 if (.Platform$OS.type == "windows") { print("...rtracklayer is unable to read bigWig format files in Windows...") }
 
@@ -96,7 +96,7 @@ Finally, if all pairwise comparisons have been computed ('tf=c()' by default),
 we can plot a heatmap of F values:
 
 \begin{small}
-<<heatmapPlot, fig.show='asis', include=TRUE, fig.width=1, fig.height=1.5, background='#C9C6C6'>>=
+<<heatmapPlot, fig=TRUE, include=TRUE, fig.width=1, fig.height=1.5>>=
 options(width=60)
 if (.Platform$OS.type == "windows") { print("...rtracklayer is unable to read bigWig format files in Windows...") }
 
