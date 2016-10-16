@@ -119,7 +119,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		# head (ggData ) 
 		ggData <- transform(ggData,  pair = reorder(pair, sccM))
 		#head (ggData ) 
-		p1 <- ggplot(ggData, aes(x=variables, y=scc, group=pair))  + geom_line(aes(colour = pair)) + ylim(0,1)  + theme_bw() + theme(panel.border = element_rect( colour = "black")) +   theme(legend.position='none', plot.title = element_text(lineheight=.8, face="bold")) + xlab("Canonical variable (k)") + ylab( expression(Squared~canonical~correlation~(R[k] ^{2}) ) )  +   geom_point(size=0.9, shape=5, aes(colour=pair)) + scale_x_continuous(breaks=1:ncan) + scale_colour_manual(values = colfunc(ncol(co))) + ggtitle(main)  
+		p1 <- ggplot(ggData, aes(x=variables, y=scc, group=pair))  + geom_line(aes(colour = pair)) + ylim(0,1)  + theme_bw() + theme(panel.border = element_rect( colour = "black")) +   theme(legend.position='none', plot.title = element_text(lineheight=.8, face="bold")) + xlab("Canonical variable (k)") + ylab( expression(Squared~canonical~correlation~(R[k] ^{2}) ) )  +   geom_point(size=0.9, shape=5, aes(colour=pair)) + scale_x_continuous(breaks=seq(from=1, to=ncan, by=1)  ) + scale_colour_manual(values = colfunc(ncol(co))) + ggtitle(main)  
 		# select 1st canonical correlation
 		ggData <- subset(ggData, variables==1 )
 		#head (ggData ) 
