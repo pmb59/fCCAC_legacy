@@ -6,7 +6,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 	print("Reading peaks...")
 	peaks <- readGeneric(file=peaks, chr=1, start=2, end=3)  #[1:100]  #readBed
 	  
-  if (ncan > splines | ncan > length(peaks) ){ print("ncan should not be higher than the number of splines or peaks. Please lower the value of ncan.")   }
+	if (ncan > splines | ncan > length(peaks) ){ print("ncan should not be higher than the number of splines or peaks. Please lower the value of ncan.")   }
 
 	if (ncan <= splines | ncan <= length(peaks)){
 		
@@ -64,7 +64,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 			for (j in seq(from=1, to=ncol(co), by=1)  ){
 		 		if ( length( grep(pattern=tf, x=co[,j]) ) >0  ) tf_co <- c(tf_co, j)
 			}
-		co <- co[,tf_co]
+			co <- co[,tf_co]
 		}
 	
 	
@@ -84,7 +84,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 			x[[i]] = cca.fd(fdobj1=fdaData[[file1]], fdobj2=fdaData[[file2]], ncan = ncan, ccafdPar1=fdPar(bspl, 0, 0), ccafdPar2=fdPar(bspl,0, 0), centerfns=TRUE)
 	
 		}
-    #NCAN calculated in 'cca.fd' is always the number of splines
+		#NCAN calculated in 'cca.fd' is always the number of splines
 		#plot.cca.fd(x)
 
 
@@ -150,7 +150,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 
 
 
-    colnames(ggDataTXT) <- c("samples","F","squ_can_corr_k_1","k","squ_can_corr_k_1","color"  )
+		colnames(ggDataTXT) <- c("samples","F","squ_can_corr_k_1","k","squ_can_corr_k_1","color"  )
 		fccac_out <- ggDataTXT[,c(1,2,3,4,6)]
 		
 		if (outFiles == TRUE){
