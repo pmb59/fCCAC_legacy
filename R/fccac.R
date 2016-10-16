@@ -15,14 +15,12 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 		SPLINES = splines   #
 		L = nbins           #bp
 
-
 		#Modify labels to detect replicates (assume replicates are ordered 1,2,...)
 		d <- duplicated(labels)
-		new_labels <- c()
+		new_labels <- rep("newLabel", length(labels) )       #c()
 		for (l in seq(from=1, to=length(labels), by=1)  ) {
-	
-			if (d[l] == FALSE) {  counter =1; 	new_labels[l]  <- paste(labels[l], 1, sep="_Rep") }
-			if (d[l] == TRUE)  {  counter = counter +1;  	new_labels[l]  <- paste(labels[l], counter, sep="_Rep")  } 	
+			if (d[l] == FALSE) {  counter <- 1; new_labels[l]  <- paste(labels[l], 1, sep="_Rep") }
+			if (d[l] == TRUE)  {  counter <- counter +1;  new_labels[l]  <- paste(labels[l], counter, sep="_Rep")  } 	
 		
 		}
 	
@@ -33,7 +31,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 
 		
 		#Read bigWig Files 
-		fdaData <- list()
+		fdaData <- lapply(seq(from=1, to=length(bigwigs), by=1)  , function(x) matrix(NA, nrow=length(peaks) , ncol=L+1 ))      #list()
 
 		for (i in seq(from=1, to=length(bigwigs), by=1)   ) {
 			print(paste(c("Reading bigWig file...",i,"/",length(bigwigs)),collapse="")  )
@@ -44,7 +42,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 
 		}
 		rm(fdamatrix)
-		length(fdaData)
+		#length(fdaData)
 
 
 		#Prepare Data for functional CCA
@@ -72,6 +70,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
   		}
 	
 	
+			
 		w <-  1/ ( seq(from=1, to=ncan, by=1)  )
 		Ma <-  sum(w) 		# maximum possible value for w
 		S <- c()  		# weighted sums
@@ -99,7 +98,7 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 			file1 <- which(new_labels==co[1,i])
 			file2 <- which(new_labels==co[2,i])
 			pair <- c(pair,  rep( paste(new_labels[c(file1,file2)]  , collapse="_vs_") ,ncan)  )
-			Spair <- 	c(Spair, paste(new_labels[c(file1,file2)], collapse="_vs_" ) )
+			Spair <- c(Spair, paste(new_labels[c(file1,file2)], collapse="_vs_" ) )
 
 			#calculate weigthed sum
 			S[[i]]= sum(w* x[[i]]$ccacorr[ seq(from=1, to=ncan, by=1) ]    )
@@ -145,8 +144,8 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 			
 		
 		INB = is.null(bar)
-		if ( INB == TRUE ) {   bar <- ncol(co); CHOSEN <- 1:bar;  ggData3 <- ggData3[CHOSEN,]  }
-		if ( INB != TRUE ) {  CHOSEN<-c(1:bar[1],  (length(ggData3$CL)-bar[2]+1):length(ggData3$CL)); ggData3 <- ggData3[  CHOSEN , ]	}
+		if ( INB == TRUE ) {   bar <- ncol(co); CHOSEN <- seq(from=1, to=bar, by=1)  ;  ggData3 <- ggData3[CHOSEN,]  }
+		if ( INB != TRUE ) {  CHOSEN<-c(seq(from=1, to=bar[1], by=1),  (length(ggData3$CL)-bar[2]+1):length(ggData3$CL)); ggData3 <- ggData3[  CHOSEN , ]	}
 		
 		p2 <-  ggplot(ggData3, aes(x = reorder(factor(pair),S), y = S)) + geom_bar(stat = "identity",width=.6, fill=reorder(rev(as.character(ggData3$CL)) ,ggData3$S) )+ coord_flip() + ylim(0,100)  + theme_bw() + theme(panel.border = element_rect( colour = "black")) +  theme(legend.position='none', text = element_text(size=10)   )  + ylab("F(%)") + xlab("") + geom_hline(yintercept = 100, colour="red", linetype = "longdash")
 		
@@ -170,7 +169,6 @@ fccac <- function(peaks, bigwigs, labels, splines=10, nbins=100, ncan=5 , tf=c()
 
 		if (outFiles == FALSE){
 			multiplot(p1, p2, cols=1)
-
 		}		
 	
 			
